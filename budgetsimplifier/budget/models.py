@@ -13,3 +13,27 @@ class Budget(models.Model):
 
     def __str__(self):
         return self.display_name
+
+class PayConfiguration(models.Model):
+    FORTNIGHTLY = 'FN'
+    WEEKLY = 'WY'
+    MONTHLY = 'MO'
+    ADD_HOC = 'AH'
+    PAY_CYCLE_CHOICES = {
+        (FORTNIGHTLY, 'Fortnightly'),
+        (WEEKLY, 'Weekly'),
+        (MONTHLY, 'Monthly'),
+        (ADD_HOC, 'Add Hoc'),
+    }
+    frequency = models.CharField(
+        verbose_name = "Payment Frequency",
+        max_length = 2,
+        choices = PAY_CYCLE_CHOICES,
+        default = FORTNIGHTLY
+    )
+    take_home_pay = models.DecimalField(verbose_name="Take Home Pay", max_digits=12, decimal_places=2)
+    date_active_from = models.DateField(verbose_name="Date Active From")
+    owner = models.ForeignKey(User, on_delete=None, null=False, verbose_name=_("Owner"), related_name='%(class)s_owner')
+
+    def __str__(self):
+        return "%s %s %s" % (self.owner, str(self.date_active_from), self.frequency)

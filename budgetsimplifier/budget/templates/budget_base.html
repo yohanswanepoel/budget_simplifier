@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+
+
+{% block content %}
+<div id="app"  class="row">
+    <nav class="col-md-2 hidden-xs-down bg-faded sidebar">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Summary<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'budgetsimplifier:home' %}">Budget Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Reports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Manage</a>
+        </li>
+      </ul>
+
+
+    </nav>
+    <main class="col-md-10 pt-3">
+    {% block main %}
+    {% endblock main%}
+</main>
+</div>
+{% endblock content %}
