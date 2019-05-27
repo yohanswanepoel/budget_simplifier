@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from budgetsimplifier.users.models import User
 
 
-class Accounts(models.Model):
+class Budget(models.Model):
     number = models.CharField(verbose_name=_("Acc Number"), max_length=50)
     name = models.CharField(verbose_name=_("Acc Name"), max_length=50)
     display_name = models.CharField(verbose_name=_("Display Name"), max_length=50)

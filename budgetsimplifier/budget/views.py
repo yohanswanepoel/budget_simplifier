@@ -4,8 +4,8 @@ from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
 @method_decorator(login_required(login_url='home'), name='dispatch')
-class AccountsMainView(TemplateView):
-    template_name='listaccounts.html'
+class BudgetMainView(TemplateView):
+    template_name='listbudgets.html'
     def get(self, request):
         context = {}
         return render(request, self.template_name,context)

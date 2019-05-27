@@ -58,7 +58,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'budgetsimplifier.users.apps.UsersConfig',
-    'budgetsimplifier.accounts',
+    'budgetsimplifier.budget',
     # Your stuff: custom apps go here
 ]
 

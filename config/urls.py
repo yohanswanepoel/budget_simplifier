@@ -16,10 +16,10 @@ urlpatterns = [
 
     # User management
     url(r'^users/', include('budgetsimplifier.users.urls', namespace='users')),
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'^budget/', include('allauth.urls')),
 
     # Logged In
-    url(r'^budgetsimplifier/', include('budgetsimplifier.accounts.urls', namespace='budgetsimplifier')),
+    url(r'^budgetsimplifier/', include('budgetsimplifier.budget.urls', namespace='budgetsimplifier')),
 
     # Your stuff: custom urls includes go here
 
