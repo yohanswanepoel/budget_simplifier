@@ -1,5 +1,5 @@
 """
-Django settings for myaccounts project.
+Django settings for budgetsimplifier project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/dev/topics/settings/
@@ -12,8 +12,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-ROOT_DIR = environ.Path(__file__) - 3  # (myaccounts/config/settings/base.py - 3 = myaccounts/)
-APPS_DIR = ROOT_DIR.path('myaccounts')
+ROOT_DIR = environ.Path(__file__) - 3  # (budgetsimplifier/config/settings/base.py - 3 = budgetsimplifier/)
+APPS_DIR = ROOT_DIR.path('budgetsimplifier')
 
 # Load operating system environment variables and then prepare to use them
 env = environ.Env()
@@ -57,8 +57,8 @@ THIRD_PARTY_APPS = [
 # Apps specific for this project go here.
 LOCAL_APPS = [
     # custom users app
-    'myaccounts.users.apps.UsersConfig',
-    'myaccounts.accounts',
+    'budgetsimplifier.users.apps.UsersConfig',
+    'budgetsimplifier.accounts',
     # Your stuff: custom apps go here
 ]
 
@@ -82,7 +82,7 @@ MIDDLEWARE = [
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
 MIGRATION_MODULES = {
-    'sites': 'myaccounts.contrib.sites.migrations'
+    'sites': 'budgetsimplifier.contrib.sites.migrations'
 }
 
 # DEBUG
@@ -280,20 +280,20 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
-ACCOUNT_ADAPTER = 'myaccounts.users.adapters.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'myaccounts.users.adapters.SocialAccountAdapter'
+ACCOUNT_ADAPTER = 'budgetsimplifier.users.adapters.AccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'budgetsimplifier.users.adapters.SocialAccountAdapter'
 
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = '/myaccounts'
+LOGIN_REDIRECT_URL = '/budgetsimplifier'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
 ########## CELERY
-INSTALLED_APPS += ['myaccounts.taskapp.celery.CeleryConfig']
+INSTALLED_APPS += ['budgetsimplifier.taskapp.celery.CeleryConfig']
 CELERY_BROKER_URL = env('CELERY_BROKER_URL', default='django://')
 if CELERY_BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'redis://'

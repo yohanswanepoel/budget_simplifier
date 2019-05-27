@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-app_name="myaccounts"
+app_name="budgetsimplifier"
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -15,11 +15,11 @@ urlpatterns = [
     url(settings.ADMIN_URL, admin.site.urls),
 
     # User management
-    url(r'^users/', include('myaccounts.users.urls', namespace='users')),
+    url(r'^users/', include('budgetsimplifier.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
     # Logged In
-    url(r'^myaccounts/', include('myaccounts.accounts.urls', namespace='myaccounts')),
+    url(r'^budgetsimplifier/', include('budgetsimplifier.accounts.urls', namespace='budgetsimplifier')),
 
     # Your stuff: custom urls includes go here
 

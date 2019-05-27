@@ -1,5 +1,5 @@
 """
-WSGI config for myaccounts project.
+WSGI config for budgetsimplifier project.
 
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
@@ -20,9 +20,9 @@ from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
 # This allows easy placement of apps within the interior
-# myaccounts directory.
+# budgetsimplifier directory.
 app_path = os.path.dirname(os.path.abspath(__file__)).replace('/config', '')
-sys.path.append(os.path.join(app_path, 'myaccounts'))
+sys.path.append(os.path.join(app_path, 'budgetsimplifier'))
 
 config_setting = os.environ.get('DJANGO_SETTINGS_MODULE')
 print ("Config setting", config_setting)

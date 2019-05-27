@@ -77,17 +77,17 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/myaccounts.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/budgetsimplifier.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/myaccounts.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/budgetsimplifier.qhc"
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/myaccounts"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/myaccounts"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/budgetsimplifier"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/budgetsimplifier"
 	@echo "# devhelp"
 
 epub:

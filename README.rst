@@ -1,4 +1,4 @@
-myaccounts
+budgetsimplifier
 ==========
 
 A system of engagement for account management using django, vue, bootstrap ect
@@ -66,8 +66,8 @@ To run a celery worker:
 
 .. code-block:: bash
 
-    cd myaccounts
-    celery -A myaccounts.taskapp worker -l info
+    cd budgetsimplifier
+    celery -A budgetsimplifier.taskapp worker -l info
 
 Please note: For Celery's import magic to work, it is important *where* the celery commands are run. If you are in the same folder with *manage.py*, you should be right.
 

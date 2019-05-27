@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from myaccounts.users.models import User
+from budgetsimplifier.users.models import User
 
 
 class Accounts(models.Model):
