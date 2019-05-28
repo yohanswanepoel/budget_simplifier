@@ -7,8 +7,14 @@
             {{ latest_pay_configuration.take_home_pay }}<br>
             {{ latest_pay_configuration.date_active_from }}<br>
             Pay cycles this month: {{ pay_cycles_this_month }}<br>
-            Rolling pays: {{ rolling_pays }}<br>
-
+            Previous Pay: {{ previous_pay }}<br>
+            Next Pay: {{ next_pay }}<br>
+            Rolling pays: 
+            <ul>
+                {% for pay in rolling_pays %}
+                    <li>{{ pay }}</li>
+                {% endfor %}
+            </ul>
             <button v-on:click="changeValue" class="btn">Changes</button>
       <button v-on:click="resetValue" class="btn">Reset</button>
       <button v-on:click="addToList" class="btn">Add Item</button>
