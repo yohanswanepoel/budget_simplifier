@@ -6,8 +6,9 @@
             {{ latest_pay_configuration.get_frequency_display }}<br>
             {{ latest_pay_configuration.take_home_pay }}<br>
             {{ latest_pay_configuration.date_active_from }}<br>
-            Paycycles this month: {{ pay_cycles_this_month }}<br>
-            
+            Pay cycles this month: {{ pay_cycles_this_month }}<br>
+            Rolling pays: {{ rolling_pays }}<br>
+
             <button v-on:click="changeValue" class="btn">Changes</button>
       <button v-on:click="resetValue" class="btn">Reset</button>
       <button v-on:click="addToList" class="btn">Add Item</button>
