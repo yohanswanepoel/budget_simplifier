@@ -14,6 +14,30 @@ class Budget(models.Model):
     def __str__(self):
         return self.display_name
 
+class Expense(models.Model):
+    AT_PAY = 'AP'
+    MONTHLY = 'MO'
+    ADD_HOC = 'AH'
+    QUARTERLY = 'QY'
+    PAY_CYCLE_CHOICES = {
+        (AT_PAY, 'At Pay'),
+        (MONTHLY, 'Monthly'),
+        (ADD_HOC, 'Add Hoc'),
+        (QUARTERLY, 'Quarterly'),
+    }
+    name = models.CharField(verbose_name=_("Expense"), max_length=100)
+    frequency = models.CharField(
+        verbose_name = "Expense Frequency",
+        max_length = 2,
+        choices = PAY_CYCLE_CHOICES,
+        default = AT_PAY
+    )
+    cost = models.DecimalField(verbose_name="Expense $",max_digits=12,decimal_places=2)
+    day_of_month = models.IntegerField(verbose_name="Day of Month")
+
+    def _str_(self):
+        return self.name
+
 class PayConfiguration(models.Model):
     FORTNIGHTLY = 'FN'
     WEEKLY = 'WY'
