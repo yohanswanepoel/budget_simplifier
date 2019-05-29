@@ -34,9 +34,10 @@ class Expense(models.Model):
     )
     cost = models.DecimalField(verbose_name="Expense $",max_digits=12,decimal_places=2)
     day_of_month = models.IntegerField(verbose_name="Day of Month")
+    owner = models.ForeignKey(User, on_delete=None, null=False, verbose_name=_("Owner"), related_name='%(class)s_owner')
 
     def _str_(self):
-        return self.name
+        return "%s %s" %(self.owner, self.name)
 
 class PayConfiguration(models.Model):
     FORTNIGHTLY = 'FN'
