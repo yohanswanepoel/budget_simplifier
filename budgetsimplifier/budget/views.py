@@ -2,10 +2,12 @@ from . import utils
 from datetime import date, timedelta
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import  login_required
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.shortcuts import render, redirect
-from .models import PayConfiguration
+from .models import PayConfiguration, Expense
 from budgetsimplifier.users.models import User
+from .forms import ExpenseForm, SimpleTestForm
+from .tables import ExpenseTable
 
 
 @method_decorator(login_required(login_url='home'), name='dispatch')
@@ -23,3 +25,49 @@ class BudgetMainView(TemplateView):
             'rolling_pays': utils.get_rolling_nine_pay_dates(latest_pay_configuration.date_active_from, date.today(), 14),
             }
         return render(request, self.template_name,context)
+
+@method_decorator(login_required(login_url='home'), name='dispatch')
+class ExpenseListMainView(TemplateView):
+    template_name='components/expense.html'
+    form_class = ExpenseForm
+    def post(self, request):
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.owner = request.user
+            expense.save()
+        return redirect('budget:expenses')
+
+    def get(self, request):
+        print(self.kwargs)
+        form = ExpenseForm()
+        expenses = ExpenseTable(Expense.objects.filter(owner=request.user))
+        context = {
+            'expenses': expenses,
+            'form': form,
+            'expense_table': expenses,
+            }
+        return render(request, self.template_name, context)
+
+@method_decorator(login_required(login_url='home'), name='dispatch')
+class ExpenseMainView(TemplateView):
+    template_name='components/expense.html'
+    form_class = ExpenseForm
+    
+    def get(self, request, pk):
+        expense = Expense.objects.get(pk=pk)
+        form = ExpenseForm(instance=expense)
+        expenses = ExpenseTable(Expense.objects.filter(owner=request.user))
+        context = {
+            'expenses': expenses,
+            'form': form,
+            'expense_table': expenses,
+            }
+        return render(request, self.template_name, context)
+    
+    # EDIT Function
+    def post(self, request, pk):
+        expense = Expense.objects.get(pk=pk)
+        form = ExpenseForm(request.POST, instance = expense)
+        form.save()
+        return redirect('budget:expenses')

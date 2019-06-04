@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, url
+from django.urls import path
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
@@ -8,18 +9,18 @@ from django.views import defaults as default_views
 app_name="budgetsimplifier"
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
+    path('', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    path('about', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}
-    url(settings.ADMIN_URL, admin.site.urls),
+    path('admin/', admin.site.urls),
 
     # User management
-    url(r'^users/', include('budgetsimplifier.users.urls', namespace='users')),
-    url(r'^budget/', include('allauth.urls')),
+    path('users', include('budgetsimplifier.users.urls', namespace='users')),
+    path('budget', include('allauth.urls')),
 
     # Logged In
-    url(r'^budgetsimplifier/', include('budgetsimplifier.budget.urls', namespace='budgetsimplifier')),
+    path('budgetsimplifier/', include('budgetsimplifier.budget.urls', namespace='budgetsimplifier')),
 
     # Your stuff: custom urls includes go here
 
