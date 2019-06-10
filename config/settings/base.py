@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'django_tables2',
+    'bootstrap_modal_forms',
 ]
 
 # Apps specific for this project go here.

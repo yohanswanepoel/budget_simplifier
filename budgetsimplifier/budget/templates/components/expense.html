@@ -4,14 +4,59 @@
 {% block main %}
           <h1>Expenses </h1>
           <div>
-            <form method="post" >
-                {% csrf_token %}
-                {{ form.as_p }}
-                 
-                <button type="submit" class="btn btn-default">Submit</button>
-                </form>
-          </div> 
-          {% render_table expense_table %}  
+            
+          <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+          
+              </div>
+            </div>
+          </div>
+            <!-- Button trigger modal -->
+            <button id="createExpense" type="button" class="btn btn-primary" data-toggle="modal" data-target="#expenseModal">
+                CreateExpense
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="expense_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div id="modal_body" class="modal-body">
+                    ...
+                    </div>
+                </div>
+                </div>
+            </div>
+           {% render_table expense_table %}  
           
 {% endblock main %}
 
+
+{% block custom_javascript %}
+
+<script type="text/javascript">
+    
+        $('#createExpense').on('click',function(){
+            $('.modal-body').load("{% url 'budgetsimplifier:create_expense' %}",function(){
+                $('#expense_modal').modal({show:true});
+            });
+        });
+
+        function edit_expense(id){
+            $('.modal-body').load("{% url 'budget:expenses' %}"+id,function(){
+                $('#expense_modal').modal({show:true});
+            }); 
+        }
+
+        function delete_expense(id){
+            url =  "{% url 'budget:expenses' %}delete/"+id;
+            var result = confirm("Are you sure you want to delete this record?");
+            if (result) {
+                //true            
+                window.location.href = url;
+            }
+        }
+        
+</script>
+
+{% endblock custom_javascript %}

@@ -30,14 +30,7 @@ class BudgetMainView(TemplateView):
 class ExpenseListMainView(TemplateView):
     template_name='components/expense.html'
     form_class = ExpenseForm
-    def post(self, request):
-        form = ExpenseForm(request.POST)
-        if form.is_valid():
-            expense = form.save(commit=False)
-            expense.owner = request.user
-            expense.save()
-        return redirect('budget:expenses')
-
+    
     def get(self, request):
         print(self.kwargs)
         form = ExpenseForm()
@@ -50,22 +43,46 @@ class ExpenseListMainView(TemplateView):
         return render(request, self.template_name, context)
 
 @method_decorator(login_required(login_url='home'), name='dispatch')
-class ExpenseMainView(TemplateView):
-    template_name='components/expense.html'
-    form_class = ExpenseForm
+class ExpenseFormNew(TemplateView):
+    template_name='components/expenseView.html'
     
+    def post(self, request):
+        form = ExpenseForm(request.POST)
+        if form.is_valid():
+            expense = form.save(commit=False)
+            expense.owner = request.user
+            expense.save()
+        return redirect('budget:expenses')
+
+
+    def get(self, request):
+        form = ExpenseForm()
+        context = {
+            'form': form,
+            'title': 'Create Expense',
+            'action': request.get_full_path,
+        }
+        return render(request, self.template_name, context)
+    
+@method_decorator(login_required(login_url='home'), name='dispatch')
+class DeleteExpense(TemplateView):
+    def get(self, request, pk):
+        Expense.objects.filter(pk=pk).delete()
+        return redirect('budget:expenses')
+        
+@method_decorator(login_required(login_url='home'), name='dispatch')
+class ExpenseFormUpdate(TemplateView):
+    template_name='components/expenseView.html'
     def get(self, request, pk):
         expense = Expense.objects.get(pk=pk)
         form = ExpenseForm(instance=expense)
-        expenses = ExpenseTable(Expense.objects.filter(owner=request.user))
         context = {
-            'expenses': expenses,
             'form': form,
-            'expense_table': expenses,
-            }
+            'title': 'Update Expense',
+            'action': request.get_full_path,
+        }
         return render(request, self.template_name, context)
-    
-    # EDIT Function
+
     def post(self, request, pk):
         expense = Expense.objects.get(pk=pk)
         form = ExpenseForm(request.POST, instance = expense)
