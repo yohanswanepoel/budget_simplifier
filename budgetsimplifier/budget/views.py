@@ -22,6 +22,7 @@ class BudgetMainView(TemplateView):
             'pay_cycles_this_month': utils.fortnightly_cycles_current_month(latest_pay_configuration.date_active_from),
             'previous_pay': previous_pay,
             'next_pay': next_pay,
+            'nav_bar': 'home',
             'rolling_pays': utils.get_rolling_nine_pay_dates(latest_pay_configuration.date_active_from, date.today(), 14),
             }
         return render(request, self.template_name,context)
@@ -33,11 +34,10 @@ class ExpenseListMainView(TemplateView):
     
     def get(self, request):
         print(self.kwargs)
-        form = ExpenseForm()
         expenses = ExpenseTable(Expense.objects.filter(owner=request.user))
         context = {
             'expenses': expenses,
-            'form': form,
+            'nav_bar': 'expenses',
             'expense_table': expenses,
             }
         return render(request, self.template_name, context)
@@ -69,7 +69,7 @@ class DeleteExpense(TemplateView):
     def get(self, request, pk):
         Expense.objects.filter(pk=pk).delete()
         return redirect('budget:expenses')
-        
+
 @method_decorator(login_required(login_url='home'), name='dispatch')
 class ExpenseFormUpdate(TemplateView):
     template_name='components/expenseView.html'
